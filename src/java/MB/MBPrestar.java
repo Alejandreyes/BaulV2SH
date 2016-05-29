@@ -15,8 +15,10 @@ import Modelo.Solicitar;
 import Modelo.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -162,6 +164,8 @@ public class MBPrestar {
         
         prstd.Guardar(prst);
     }
+    
+    
 
     /**
      * @return the nombreUsuario

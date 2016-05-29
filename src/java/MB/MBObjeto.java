@@ -10,6 +10,7 @@ import Controlador.dao.PrestarDao;
 import Controlador.dao.SolicitudDao;
 import Controlador.dao.UsuarioDao;
 import Modelo.Objeto;
+import Modelo.Prestamo;
 import Modelo.Solicitar;
 import Modelo.Usuario;
 import java.util.ArrayList;
@@ -234,7 +235,12 @@ public class MBObjeto {
          List<Solicitar> lsts = sltdao.obtenerSolicitudes(idlibro);
          return lsts;
     }
-
+    public List<Prestamo> verPrestamos(){
+        List<Prestamo> lstPrestamos = new ArrayList<Prestamo>();
+        PrestarDao prstDao = new PrestarDao();
+        lstPrestamos = prstDao.obtenerPrestamos(idlibro);
+        return lstPrestamos;
+    }
     /**
      * @return the usuarioIniciado
      */
@@ -267,7 +273,4 @@ public class MBObjeto {
         nombreUsuario = obj.getUsuario().getNombreusuario();
         return "ConsultaObjetoIH.xhtml";
     }
-
-
-    
 }

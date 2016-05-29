@@ -6,6 +6,7 @@
 package Controlador.dao;
 
 import MB.MBPrestar;
+import Modelo.Prestamo;
 import Modelo.Solicitar;
 import java.util.List;
 
@@ -24,9 +25,18 @@ public class Prueba {
 
         
         MBPrestar p = new MBPrestar();
-        p.rechazarPrestamo(-1864380845);
+        //p.aceptarPrestamo(-1859919263);
+        /*p.aceptarPrestamo(-1154227792);
+        p.aceptarPrestamo(-1003100817);
+        p.aceptarPrestamo(-146324770);
+        p.aceptarPrestamo(54491215);
+        p.aceptarPrestamo(205575791);
+        p.aceptarPrestamo(911267262);*/
+        //p.rechazarPrestamo(760182686);
         
-       
+        //List<Prestamo> lst = p.verPrestamos(-2588655);
+        
+        //System.out.println(lst.size());
         
     }
     

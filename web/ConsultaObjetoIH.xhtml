@@ -49,73 +49,113 @@
             <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />                                      
         </h:form>
         <br/>       
-        <br/>                
-        <br/>
-        <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
+        <br/> 
+    <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">    
         <h:form id="form">           
             <p:growl id="msgs" showDetail="true" />
             <p:accordionPanel>
-                <p:tab title="Solicitudes">
-                    <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">                                
-                        <p:dataTable var="sol" value="#{mBObjeto.verSolicitudes()}">
+                <p:tab title="Prestamos">
+                    <h:form>                                
+                        <p:dataTable var="prestamo" value="#{mBObjeto.verPrestamos()}">
                             <p:column headerText="Nombre Consumidor">
-                                <h:outputText value="#{sol.getUsuarioByIdprestador().getNombre()} #{sol.getUsuarioByIdprestador().getApellidos()}" />
+                                <h:outputText value="#{prestamo.getUsuarioByIdprestador().getNombre()} #{prestamo.getUsuarioByIdprestador().getApellidos()}" />
                             </p:column>
-
-                            <p:column headerText="Fecha Solicitud">
-                                <h:outputText value="#{sol.getFechasolicitud()}" />
+                            <p:column headerText="Correo Consumidor">
+                                <h:outputText value="#{prestamo.getUsuarioByIdprestador().getCorreo()} " />
                             </p:column>
-
-                            <p:column headerText="Tiempo Solicitado">
-                                <h:outputText value="#{sol.getTiemposolicitado()} #{sol.getMedida()}" />
+                            <p:column headerText="Fecha Prestamo">
+                                <h:outputText value="#{prestamo.getFechaprestamo()} " />
                             </p:column>
-
-                            <p:column headerText="Aceptar/Rechazar"> 
-                                <h:form>
-                                    
-                                    <p:commandButton value="Aceptar" action="#{mBPrestar.aceptarPrestamo(sol.getIdsolicitud())}"/>
-                                    <p:commandButton value="Rechazar" action="#{mBPrestar.rechazarPrestamo(sol.getIdsolicitud())}" />
-                                </h:form>                                
+                            <p:column headerText="Calificacion Prestador">
+                                <h:outputText value="#{prestamo.getCalificacionprestador()}" />
+                            </p:column>
+                            <p:column headerText="Opinion Sobre Prestador">
+                                <h:outputText value="#{prestamo.getOpinionsobreprestador()}" />
+                            </p:column>
+                            <p:column headerText="Calificacion Consumidor">
+                                <h:outputText value="#{prestamo.getCalificaconsumidor()}" />
+                            </p:column>
+                            <p:column headerText="Opinion Sobre Consumidor">
+                                <h:outputText value="#{prestamo.getOpinionsobreconsumidor()}" />
+                            </p:column>
+                            <p:column headerText="Tiempo Solicitado ">
+                                <h:outputText value="#{prestamo.getTiemposolicitado()} #{prestamo.getMedida()}" />
                             </p:column>
                         </p:dataTable>
-                    </h:form>
-                </p:tab>            
-                <p:tab title="Editar">
-                    <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
-                        <br/>
-                        <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}"/>
-                        <br/>
-                        <h:outputText  value="Autor: " />
-                        <p:inputText id="autor" value="#{mBObjeto.autor}"/>
-                        <br/>
-                        <h:outputText  value="Edicion: " />
-                        <p:inputText id="edicion" value="#{mBObjeto.edicion}" />
-                        <br/>   
-                        <h:outputText  value="Año: " />
-                        <p:inputText id="anio" value="#{mBObjeto.anio}" />
-                        <br/>
-                        <h:outputText  value="Genero: " />
-                        <p:inputText id="genero" value="#{mBObjeto.genero}" />
-                        <br/>
-                        <h:outputText  value="Sinopsis: " />
-                        <p:inputText id="sinopsis" value="#{mBObjeto.sinopsis}" />
-                        <br/>
-                        <h:outputText  value="Numero de Páginas: " />
-                        <p:inputText id="numPaginas" value="#{mBObjeto.numPaginas}" />
-                        <br/>                    
-                        <p:commandButton id="AltaObjetobtn" value="Cambiar Objeto"  action="#{mBObjeto.cambiarObjeto()}" update=":mensajes" />
-                    </h:form>
-                </p:tab>
-                <p:tab title="Eliminar">
-                     <h:form   rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}"  >
-                        <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}" />
-                        <p:commandButton id="Bajaobj" value="Baja Objeto"  action="#{mBObjeto.bajaObjeto()}" update=":mensajes" />             
                     </h:form>
                 </p:tab>
             </p:accordionPanel>
         </h:form>
-        </h:form>                     
-        </ui:define>
-        </ui:composition>
+    </h:form>
+    <br/>
+    <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
+    <h:form id="form">           
+        <p:growl id="msgs" showDetail="true" />
+        <p:accordionPanel>
+            <p:tab title="Solicitudes">
+                <h:form>                                
+                    <p:dataTable var="sol" value="#{mBObjeto.verSolicitudes()}">
+                        <p:column headerText="Nombre Consumidor">
+                            <h:outputText value="#{sol.getUsuarioByIdprestador().getNombre()} #{sol.getUsuarioByIdprestador().getApellidos()}" />
+                        </p:column>
+                        
+                        <p:column headerText="Calificación Consumidor">
+                            <h:outputText value="Debe de aparecer la calif del consumidor" />
+                        </p:column>
+                        
+                        <p:column headerText="Fecha Solicitud">
+                            <h:outputText value="#{sol.getFechasolicitud()}" />
+                        </p:column>
+
+                        <p:column headerText="Tiempo Solicitado">
+                            <h:outputText value="#{sol.getTiemposolicitado()} #{sol.getMedida()}" />
+                        </p:column>
+
+                        <p:column headerText="Aceptar/Rechazar"> 
+                            <h:form>
+                                <p:commandButton value="Aceptar" action="#{mBPrestar.aceptarPrestamo(sol.getIdsolicitud())}"/>
+                                <p:commandButton value="Rechazar" action="#{mBPrestar.rechazarPrestamo(sol.getIdsolicitud())}" />
+                            </h:form>                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>            
+            <p:tab title="Editar">
+                <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
+                    <br/>
+                    <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}"/>
+                    <br/>
+                    <h:outputText  value="Autor: " />
+                    <p:inputText id="autor" value="#{mBObjeto.autor}"/>
+                    <br/>
+                    <h:outputText  value="Edicion: " />
+                    <p:inputText id="edicion" value="#{mBObjeto.edicion}" />
+                    <br/>   
+                    <h:outputText  value="Año: " />
+                    <p:inputText id="anio" value="#{mBObjeto.anio}" />
+                    <br/>
+                    <h:outputText  value="Genero: " />
+                    <p:inputText id="genero" value="#{mBObjeto.genero}" />
+                    <br/>
+                    <h:outputText  value="Sinopsis: " />
+                    <p:inputText id="sinopsis" value="#{mBObjeto.sinopsis}" />
+                    <br/>
+                    <h:outputText  value="Numero de Páginas: " />
+                    <p:inputText id="numPaginas" value="#{mBObjeto.numPaginas}" />
+                    <br/>                    
+                    <p:commandButton id="AltaObjetobtn" value="Cambiar Objeto"  action="#{mBObjeto.cambiarObjeto()}" update=":mensajes" />
+                </h:form>
+            </p:tab>
+            <p:tab title="Eliminar">
+                 <h:form   rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}"  >
+                    <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}" />
+                    <p:commandButton id="Bajaobj" value="Baja Objeto"  action="#{mBObjeto.bajaObjeto()}" update=":mensajes" />             
+                </h:form>
+            </p:tab>
+        </p:accordionPanel>
+    </h:form>
+    </h:form>                     
+    </ui:define>
+    </ui:composition>
     </body>
 </html>

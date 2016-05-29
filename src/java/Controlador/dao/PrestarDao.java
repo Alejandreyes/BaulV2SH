@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +53,40 @@ public class PrestarDao extends AbstractDao {
             desconectar();
         }
         return returnValue;
+    }
+    public List<Prestamo> obtenerPrestamos(int idlibro){
+        List<Prestamo> lstPrestamos = new ArrayList<Prestamo>();
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select * from prestamo where idlibro = ?");
+            consulta.setInt(1, idlibro);
+            ResultSet rs = consulta.executeQuery();
+            
+            if (rs.next()){
+                Prestamo returnValue = new Prestamo();
+                //returnValue.setIdprestamo(idPrestamo);
+                UsuarioDao usdao= new UsuarioDao();
+                ObjetoDao objdao= new ObjetoDao();
+                returnValue.setIdprestamo(rs.getInt("idprestamo"));
+                returnValue.setUsuarioByIdconsumidor(usdao.Buscar(rs.getInt("idconsumidor")));
+                returnValue.setUsuarioByIdprestador(usdao.Buscar(rs.getInt("idprestador")));
+                returnValue.setObjeto(objdao.Buscar(rs.getInt("idlibro")));
+                returnValue.setCalificacionprestador(rs.getInt("calificacionprestador"));
+                returnValue.setCalificaconsumidor(rs.getInt("calificaconsumidor"));
+                returnValue.setOpinionsobreprestador(rs.getString("opinionsobreprestador"));
+                returnValue.setOpinionsobreconsumidor(rs.getString("opinionsobreconsumidor"));
+                returnValue.setTiemposolicitado(rs.getInt("tiemposolicitado"));
+                returnValue.setMedida(rs.getString("medida"));
+                lstPrestamos.add(returnValue);
+                       
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return lstPrestamos;
     }
     public void Actualizar(Prestamo o) throws DataAccessLayerException {
         try {
