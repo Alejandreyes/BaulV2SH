@@ -41,11 +41,18 @@ public class MBPrestar {
     private Date fechaprestamo;
     private Integer calificacionprestador;
     private Integer calificaconsumidor;
+    private String opiniondePrestador;
     private Usuario us;
     
     public MBPrestar() {
     }
     
+    public String getOpiniondePrestador(){
+        return opiniondePrestador;
+    }
+    public void setOpiniondePrestador(String opiniondePrestador){
+        this.opiniondePrestador = opiniondePrestador;
+    }
     public MBUsuario getmBUsuario() {
         return mBUsuario;
     }
@@ -118,7 +125,7 @@ public class MBPrestar {
     public void setUs(Usuario us) {
         this.us = us;
     }
-    public void aceptarPrestamo(int idSolicitud){
+    public void aceptarSolicitud(int idSolicitud){
         System.out.println("Entro a aceptar");
         SolicitudDao sltDao = new SolicitudDao();                      
         Prestamo prstm = new Prestamo();
@@ -126,10 +133,10 @@ public class MBPrestar {
         
         Solicitar slt = sltDao.Buscar(idSolicitud);        
         Objeto obj = slt.getObjeto();
- 
+
         prstm.setObjeto(obj);
-        prstm.setUsuarioByIdprestador(slt.getUsuarioByIdprestador());
-        prstm.setUsuarioByIdconsumidor(slt.getUsuarioByIdconsumidor());        
+        prstm.setUsuarioByIdprestador(slt.getUsuarioByIdconsumidor());
+        prstm.setUsuarioByIdconsumidor(slt.getUsuarioByIdprestador());        
         prstm.setFechaprestamo(date);
         prstm.setIdprestamo(prstm.hashCode());
         
@@ -138,7 +145,7 @@ public class MBPrestar {
         
         sltDao.Eliminar(slt);
     }
-    public void rechazarPrestamo(int idSolicitud){
+    public void rechazarSolicitud(int idSolicitud){
         System.out.println("Entro a rechazar");
         SolicitudDao sltDao = new SolicitudDao();  
         Solicitar slt = sltDao.Buscar(idSolicitud);
@@ -164,7 +171,19 @@ public class MBPrestar {
         
         prstd.Guardar(prst);
     }
-    
+    public void calificarPrestador(){
+        System.out.println("entrooo1");
+        PrestarDao prstDao = new PrestarDao();
+        Prestamo prst = new Prestamo();
+        prst = prstDao.Buscar(-1861307908);
+        prst.setCalificacionprestador(calificacionprestador);
+        prst.setOpinionsobreprestador(opiniondePrestador);
+        prstDao.ActualizarCalifPrestador(prst);
+        System.out.println("saliooo 1");
+    }
+    public void really(){
+        System.out.println("cacacacacc");
+    }
     
 
     /**

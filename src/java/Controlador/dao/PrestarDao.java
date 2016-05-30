@@ -88,6 +88,63 @@ public class PrestarDao extends AbstractDao {
         }
         return lstPrestamos;
     }
+    public List<Integer> verConsumidores(int idLibro){
+        List<Integer> lstCons = new ArrayList<>();
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select idconsumidor from prestamo where idLibro = ?");
+            consulta.setInt(1, idLibro);
+            ResultSet rs = consulta.executeQuery();
+            
+            if (rs.next()){
+                /*Prestamo returnValue = new Prestamo();
+                returnValue.setIdprestamo(rs.getInt("idconsumidor"));*/                
+                lstCons.add(rs.getInt("idconsumidor"));
+                       
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return lstCons;
+    }
+    public List<Prestamo> obtenerPrestamosPorConsumidor(int idlibro, int idConsumidor){
+        List<Prestamo> lstPrestamos = new ArrayList<Prestamo>();
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select * from prestamo where idlibro = ? and idconsumidor = ?");
+            consulta.setInt(1, idlibro);
+            consulta.setInt(2, idConsumidor);
+            ResultSet rs = consulta.executeQuery();
+            
+            if (rs.next()){
+                Prestamo returnValue = new Prestamo();
+                //returnValue.setIdprestamo(idPrestamo);
+                UsuarioDao usdao= new UsuarioDao();
+                ObjetoDao objdao= new ObjetoDao();
+                returnValue.setIdprestamo(rs.getInt("idprestamo"));
+                returnValue.setUsuarioByIdconsumidor(usdao.Buscar(rs.getInt("idconsumidor")));
+                returnValue.setUsuarioByIdprestador(usdao.Buscar(rs.getInt("idprestador")));
+                returnValue.setObjeto(objdao.Buscar(rs.getInt("idlibro")));
+                returnValue.setCalificacionprestador(rs.getInt("calificacionprestador"));
+                returnValue.setCalificaconsumidor(rs.getInt("calificaconsumidor"));
+                returnValue.setOpinionsobreprestador(rs.getString("opinionsobreprestador"));
+                returnValue.setOpinionsobreconsumidor(rs.getString("opinionsobreconsumidor"));
+                returnValue.setTiemposolicitado(rs.getInt("tiemposolicitado"));
+                returnValue.setMedida(rs.getString("medida"));
+                lstPrestamos.add(returnValue);
+                       
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return lstPrestamos;
+    }
     public void Actualizar(Prestamo o) throws DataAccessLayerException {
         try {
             this.conectar();
@@ -101,6 +158,22 @@ public class PrestarDao extends AbstractDao {
             consulta.setInt(5, o.getTiemposolicitado());
             consulta.setString(6, o.getMedida());
             consulta.setInt(7, o.getIdprestamo());
+            consulta.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+    }
+    public void ActualizarCalifPrestador(Prestamo o) throws DataAccessLayerException {
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("update prestamo set calificacionprestador = ? , "
+                    + "opinionsobreprestador = ? where idprestamo = ?");
+            consulta.setInt(1, o.getCalificacionprestador());
+            consulta.setString(2, o.getOpinionsobreprestador());
+            consulta.setInt(3, o.getIdprestamo());
             consulta.executeUpdate();
         } catch (SQLException ex) {
             throw new DataAccessLayerException (ex);

@@ -241,6 +241,16 @@ public class MBObjeto {
         lstPrestamos = prstDao.obtenerPrestamos(idlibro);
         return lstPrestamos;
     }
+    public boolean puedeCalificarPrestador(int idConsumidor){
+        PrestarDao prstDao = new PrestarDao();
+        List<Integer> list = prstDao.verConsumidores(idlibro);
+        return (list.contains(idConsumidor));
+    }
+    public List<Prestamo> prestamosConsumidorPorLibro(int idConsumidor){
+        PrestarDao pDao = new PrestarDao();
+        return pDao.obtenerPrestamosPorConsumidor(idlibro,idConsumidor);
+    }
+    
     /**
      * @return the usuarioIniciado
      */
@@ -272,5 +282,5 @@ public class MBObjeto {
         numPaginas = obj.getNumpaginas();
         nombreUsuario = obj.getUsuario().getNombreusuario();
         return "ConsultaObjetoIH.xhtml";
-    }
+    }    
 }

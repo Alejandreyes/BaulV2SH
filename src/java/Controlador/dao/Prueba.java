@@ -26,11 +26,11 @@ public class Prueba {
         
         MBPrestar p = new MBPrestar();
         //p.aceptarPrestamo(-1859919263);
-        /*p.aceptarPrestamo(-1154227792);
-        p.aceptarPrestamo(-1003100817);
-        p.aceptarPrestamo(-146324770);
-        p.aceptarPrestamo(54491215);
-        p.aceptarPrestamo(205575791);
+       /* p.aceptarPrestamo(813856055);
+        p.aceptarPrestamo(911267262);
+        /*p.aceptarPrestamo(-1183918521);
+        p.aceptarPrestamo(-853404886);
+        /*p.aceptarPrestamo(205575791);
         p.aceptarPrestamo(911267262);*/
         //p.rechazarPrestamo(760182686);
         
@@ -38,6 +38,9 @@ public class Prueba {
         
         //System.out.println(lst.size());
         
+        PrestarDao prtDao = new PrestarDao();
+        List<Prestamo> lst = prtDao.obtenerPrestamosPorConsumidor(4048445, 77066);
+        System.out.println( lst.get(0).getIdprestamo());
     }
     
 }
