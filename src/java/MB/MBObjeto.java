@@ -19,6 +19,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -171,8 +173,10 @@ public class MBObjeto {
         obj.setUsuario(us);
         obj.setIdlibro(obj.hashCode());
         ObjetoDao objd = new ObjetoDao();
-        objd.Guardar(obj);
-        return "index?faces-redirect=true";
+        objd.Guardar(obj);FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.setAttribute("nombreLibro",Integer.toString(obj.getIdlibro()));
+        return "AltaObjetoImagenIH";
     }
     public String consultarObjeto(){
          //Usuario us= new Usuario(mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );        

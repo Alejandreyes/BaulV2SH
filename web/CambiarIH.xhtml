@@ -9,14 +9,36 @@
 
         <ui:composition template="./Plantillas/Perfil.xhtml">
 
+            <ui:define name="left">
+                    <p:graphicImage id="imagenPerfil" 
+                                rendered="#{mBSubirFotoPerfil.ruta != null }"
+                                value="../resources/Imagenes/FotosPerfil/#{mBSubirFotoPerfil.ruta}" 
+                                height="130px" width="150px"/>
+                <h:graphicImage rendered="#{mBSubirFotoPerfil.ruta == null}"
+                                height="130px" width="150px" 
+                                url="../resources/Imagenes/FotosPerfil/anonimo.gif"/>
+                <br/>
+                    <div id="secundario">
+                        
+                        <ul>
+                        <li><h:link value="Cambiar información" outcome="CambiarIH"/></li>
+                        <li><h:link value="Consultar información" outcome="ConsultarIH"/></li>
+                        <li><h:link value="Borrar información" outcome="BajaIH"/></li>
+                    </ul>
+                        
+                                
+                    </div>
+                </ui:define>
             <ui:define name="content">
                 
-                 <h:form>
-                <p:fileUpload fileUploadListener="#{mBSubeArchivo.upload}" mode="advanced"
-                     update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
- 
-    <p:growl id="messages" showDetail="true" />
-</h:form>
+                 <h:form class="form-horizontal">
+                    <p:panel>
+                        <p:fileUpload required="true" fileUploadListener="#{mBSubirFotoPerfil.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                      cancelLabel="Cancelar" uploadLabel="Cambiar foto perfil" label="Escoger Foto Perfil"
+                                        fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                    </p:panel>
+
+                </h:form>
                 
                 
                 <h:form>

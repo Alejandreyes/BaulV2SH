@@ -6,8 +6,28 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"> 
     <body>
-
+        
         <ui:composition template="./Plantillas/Perfil.xhtml">
+        <ui:define name="left">
+                    <p:graphicImage id="imagenPerfil" 
+                                rendered="#{mBSubirFotoPerfil.ruta != null }"
+                                value="../resources/Imagenes/FotosPerfil/#{mBSubirFotoPerfil.ruta}" 
+                                height="130px" width="150px"/>
+                <h:graphicImage rendered="#{mBSubirFotoPerfil.ruta == null}"
+                                height="130px" width="150px" 
+                                url="../resources/Imagenes/FotosPerfil/anonimo.gif"/>
+                <br/>
+                    <div id="secundario">
+                        
+                        <ul>
+                        <li><h:link value="Cambiar información" outcome="CambiarIH"/></li>
+                        <li><h:link value="Consultar información" outcome="ConsultarIH"/></li>
+                        <li><h:link value="Borrar información" outcome="BajaIH"/></li>
+                    </ul>
+                        
+                                
+                    </div>
+                </ui:define>
 
             <ui:define name="content">
                 <p:panel id="informacion" footer="Informacion actual del usuario " style=" border-width: 50px">

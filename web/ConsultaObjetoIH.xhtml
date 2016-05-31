@@ -13,11 +13,12 @@
             <ui:define name="content">
                 
             <p:growl id="mensajes" showDetail="true" life="10000" />
-            
+            <h:graphicImage
+                    value="../resources/Imagenes/PortadasLibros/#{mBObjeto.idlibro}.jpg" 
+                                height="400px" width="500px"/>
             <p:panelGrid columns="2">
                 <f:facet name="header">
                     <h3>#{mBObjeto.nombreLibro}</h3>
-                    <!-- <p:graphicImage name="/web/resources/Imagenes/lib1" />-->
                 </f:facet>
 
                 <h:outputText value="Autor:" />
