@@ -132,8 +132,7 @@
                         <p:column headerText="Correo Consumidor">
                             <h:outputText value="#{prestamo.getUsuarioByIdconsumidor().getCorreo()} " />
                         </p:column>
-                        <p:column headerText="Calificacion general consumidor ">
-                            <h:outputText value="Calificacion Prestador:" />               
+                        <p:column headerText="Calificacion general consumidor ">            
                             <p:rating value="#{mBObjeto.calificacionPrestador(prestamo.getUsuarioByIdprestador().getIdusuario())}" readonly="true" />                
                         </p:column>
                         <p:column headerText="Fecha Prestamo">

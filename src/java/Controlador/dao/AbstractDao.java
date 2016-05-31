@@ -10,8 +10,8 @@ public abstract class AbstractDao {
         try {
             String driver = "org.postgresql.Driver";
             String url = "jdbc:postgresql://localhost:5432/BaulV2";
-            String user = "Usuario";
-            String password = "1234";
+            String user = "postgres";
+            String password = "postgres";
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, user , password);
         } catch (ClassNotFoundException ex) {

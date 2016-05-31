@@ -108,6 +108,7 @@ public class MBUsuario {
     }
 
     public String valida() {
+        try {
         UsuarioDao user = new UsuarioDao();
         
         Usuario tmp = new Usuario();
@@ -123,7 +124,9 @@ public class MBUsuario {
             return "index?faces-redirect=true";
         }else {
             return "SignInIH";
-        }
+        } }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "nombre de usuario o contraseña no válidas"));
         }
             return "SignInIH";
         
