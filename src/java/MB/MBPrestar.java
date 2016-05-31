@@ -132,32 +132,7 @@ public class MBPrestar {
     public void setUs(Usuario us) {
         this.us = us;
     }
-    public void aceptarSolicitud(int idSolicitud){
-        System.out.println("Entro a aceptar");
-        SolicitudDao sltDao = new SolicitudDao();                      
-        Prestamo prstm = new Prestamo();
-        Date date = new Date();
-        
-        Solicitar slt = sltDao.Buscar(idSolicitud);        
-        Objeto obj = slt.getObjeto();
-
-        prstm.setObjeto(obj);
-        prstm.setUsuarioByIdprestador(slt.getUsuarioByIdconsumidor());
-        prstm.setUsuarioByIdconsumidor(slt.getUsuarioByIdprestador());        
-        prstm.setFechaprestamo(date);
-        prstm.setIdprestamo(prstm.hashCode());
-        
-        PrestarDao prstDao = new PrestarDao();
-        prstDao.Guardar(prstm);
-        
-        sltDao.Eliminar(slt);
-    }
-    public void rechazarSolicitud(int idSolicitud){
-        System.out.println("Entro a rechazar");
-        SolicitudDao sltDao = new SolicitudDao();  
-        Solicitar slt = sltDao.Buscar(idSolicitud);
-        sltDao.Eliminar(slt);
-    }
+    
     public void solicitarPrestamo(){
         ObjetoDao objd = new ObjetoDao();
         
