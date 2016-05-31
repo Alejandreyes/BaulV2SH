@@ -42,8 +42,10 @@ public class MBPrestar {
     private Integer calificacionprestador;
     private Integer calificaconsumidor;
     private String opiniondePrestador;
+    private String opiniondeConsumidor;
     private Usuario us;
     private boolean flag;
+    private Integer idPrestamo;
     
     public MBPrestar() {
     }
@@ -54,11 +56,23 @@ public class MBPrestar {
     public void setOpiniondePrestador(String opiniondePrestador){
         this.opiniondePrestador = opiniondePrestador;
     }
+    public String getOpiniondeConsumidor(){
+        return opiniondeConsumidor;
+    }
+    public void setOpiniondeConsumidor(String opiniondeConsumidor){
+        this.opiniondeConsumidor = opiniondeConsumidor;
+    }
     public boolean getFlag(){
         return flag;
     }
     public void setFlag(boolean flag){
         this.flag = flag;
+    }
+    public Integer getIdPrestamo(){
+        return idPrestamo;
+    }
+    public void setIdPrestamo(Integer idPrestamo){
+        this.idPrestamo = idPrestamo;
     }
     public MBUsuario getmBUsuario() {
         return mBUsuario;
@@ -157,15 +171,26 @@ public class MBPrestar {
         System.out.println("entro aqui");        
         return "index";
     }
-    public void calificarPrestador(){
-        System.out.println("entrooo1");
+    public String calificarPrestador(){
         PrestarDao prstDao = new PrestarDao();
         Prestamo prst = new Prestamo();
-        prst = prstDao.Buscar(-1861307908);
+        prst = prstDao.Buscar(idPrestamo);        
         prst.setCalificacionprestador(calificacionprestador);
         prst.setOpinionsobreprestador(opiniondePrestador);
-        prstDao.ActualizarCalifPrestador(prst);
+        prstDao.califPrestador(prst);        
+        return "index";
+    }
+    public String calificarConsumidor(){
+        System.out.println("entrooo1");        
+        PrestarDao prstDao = new PrestarDao();
+        Prestamo prst = new Prestamo();
+        prst = prstDao.Buscar(idPrestamo);
+        prst.setCalificaconsumidor(calificaconsumidor);
+        prst.setOpinionsobreconsumidor(opiniondeConsumidor);
+        System.out.println("id: "+prst.getIdprestamo()+" califcons: "+prst.getCalificaconsumidor()+" opincons: "+prst.getOpinionsobreconsumidor());
+        prstDao.califConsumidor(prst);
         System.out.println("saliooo 1");
+        return "index";
     }
     
 

@@ -54,9 +54,9 @@
             <br/> <br/> <br/> <br/> <br/>                       
                 <p:growl id="msgs" showDetail="true" />
                 <p:accordionPanel>
-                    <p:tab title="Datos Prestamos">
+                    <p:tab title="Prestamos1">
                     <h:form>                                
-                        <p:dataTable var="prestamo" value="#{mBObjeto.prestamosConsumidorPorLibro(aBCCPerfil.mBUsuario.idUsuario)}">
+                        <p:dataTable var="prestamo" value="#{mBObjeto.prestamoConsumidorPorLibro(aBCCPerfil.mBUsuario.idUsuario)}">
                             <p:column headerText="Id Prestamo">
                                 <h:outputText value="#{prestamo.getIdprestamo()} " />
                             </p:column> 
@@ -70,13 +70,13 @@
                                 <h:outputText value="#{prestamo.getFechaprestamo()} " />
                             </p:column>                            
                             <p:column headerText="Calificacion Consumidor">
-                                <h:outputText value="#{prestamo.getCalificaconsumidor()}" />
+                                <p:rating value="#{prestamo.getCalificaconsumidor()}" readonly="true" />
                             </p:column>
                             <p:column headerText="Opinion Sobre Consumidor">
                                 <h:outputText value="#{prestamo.getOpinionsobreconsumidor()}" />
                             </p:column>
                             <p:column headerText="Calificacion Prestador">
-                                <h:outputText value="#{prestamo.getCalificacionprestador()}" />
+                                <p:rating value="#{prestamo.getCalificacionprestador()}" readonly="true" />
                             </p:column>
                             <p:column headerText="Opinion Sobre Prestador">
                                 <h:outputText value="#{prestamo.getOpinionsobreprestador()}" />
@@ -88,8 +88,15 @@
         </h:form>
         <h:form rendered="#{mBObjeto.puedeCalificarPrestador(aBCCPerfil.mBUsuario.idUsuario)}">   
             <p:accordionPanel>
-            <p:tab title="Calificar Prestador">
-                <h:outputText  value="Estrellas " />
+            <p:tab title="Calificar Prestador">                
+                <br/> 
+                <h:outputText  value="IdPrestamo:: #{mBObjeto.prestamoConsumidorPorLibroId(aBCCPerfil.mBUsuario.idUsuario)}" />
+                <br/> 
+                <h:outputText  value="idPrestamo: " />
+                <br/> 
+                <h:inputText value="#{mBPrestar.idPrestamo}" />
+                <br/> 
+                <h:outputText  value="Calificación " />
                 <br/> 
                 <p:rating style="margin-left: 46%" value="#{mBPrestar.calificacionprestador}" />
                 <br/> 
@@ -97,7 +104,7 @@
                 <br/> 
                 <h:inputTextarea rows="8" cols="25" value="#{mBPrestar.opiniondePrestador}" />
                 <br/> 
-                <p:commandButton id="califPrestador" value="Calificar" action="#{mBPrestar.calificarPrestador(prestamo.idprestamo)}" update=":mensajes"/>
+                <p:commandButton id="califPrestador" value="Calificar" action="#{mBPrestar.calificarPrestador()}" update=":mensajes"/>
             </p:tab>
             </p:accordionPanel>
         </h:form>  
@@ -109,6 +116,9 @@
             <p:tab title="Prestamos">
                 <h:form>                                
                     <p:dataTable var="prestamo" value="#{mBObjeto.verPrestamos()}">
+                        <p:column headerText="Id Prestamo">
+                            <h:outputText value="#{prestamo.getIdprestamo()} " />
+                        </p:column> 
                         <p:column headerText="Nombre Consumidor">
                             <h:outputText value="#{prestamo.getUsuarioByIdprestador().getNombre()} #{prestamo.getUsuarioByIdprestador().getApellidos()}" />
                         </p:column>
@@ -119,13 +129,13 @@
                             <h:outputText value="#{prestamo.getFechaprestamo()} " />
                         </p:column>
                         <p:column headerText="Calificacion Prestador">
-                            <h:outputText value="#{prestamo.getCalificacionprestador()}" />
+                            <p:rating value="#{prestamo.getCalificacionprestador()}" readonly="true" />
                         </p:column>
                         <p:column headerText="Opinion Sobre Prestador">
                             <h:outputText value="#{prestamo.getOpinionsobreprestador()}" />
                         </p:column>
                         <p:column headerText="Calificacion Consumidor">
-                            <h:outputText value="#{prestamo.getCalificaconsumidor()}" />
+                            <p:rating value="#{prestamo.getCalificaconsumidor()}" readonly="true"  />
                         </p:column>
                         <p:column headerText="Opinion Sobre Consumidor">
                             <h:outputText value="#{prestamo.getOpinionsobreconsumidor()}" />
@@ -140,19 +150,7 @@
     </h:form>
   
     <br/>  
-    <h:form  rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">               
-            <p:accordionPanel>
-            <p:tab title="Aceptar/Rechazar Solicitudes por Id">                    
-                <h:outputText  value="Id Solicitud " />
-                <br/>   
-                <p:inputText  id="autor" value="#{mBSolicitar.idsolicitud}"/>
-                <br/>        
-                <br/>   
-                <p:commandButton id="aceptarSol" value="Aceptar"  action="#{mBSolicitar.aceptarSolicitud()}" update=":mensajes" />
-                <p:commandButton id="rechazarSol" value="Rechazar"  action="#{mBSolicitar.rechazarSolicitud()}" update=":mensajes" />
-            </p:tab> 
-        </p:accordionPanel>               
-    </h:form>
+   
     <br/>  
     <h:form  rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">           
         <p:growl id="msgs" showDetail="true" />
@@ -183,6 +181,41 @@
                     </p:dataTable>                                
             </p:tab> 
         </p:accordionPanel> 
+    </h:form>
+    <br/>
+     <h:form  rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">               
+            <p:accordionPanel>
+            <p:tab title="Aceptar/Rechazar Solicitudes por Id">                    
+                <h:outputText  value="Id Solicitud " />
+                <br/>   
+                <p:inputText  id="autor" value="#{mBSolicitar.idsolicitud}"/>
+                <br/>        
+                <br/>   
+                <p:commandButton id="aceptarSol" value="Aceptar"  action="#{mBSolicitar.aceptarSolicitud()}" update=":mensajes" />
+                <p:commandButton id="rechazarSol" value="Rechazar"  action="#{mBSolicitar.rechazarSolicitud()}" update=":mensajes" />
+            </p:tab> 
+        </p:accordionPanel>               
+    </h:form>
+    <br/>
+    <h:form  rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">               
+        <p:accordionPanel>
+            <p:tab title="Calificar Consumidores">
+                <br/> 
+                <h:outputText  value="idPrestamo: " />
+                <br/> 
+                <h:inputText value="#{mBPrestar.idPrestamo}" />
+                <br/> 
+                <h:outputText  value="Calificación " />
+                <br/> 
+                <p:rating style="margin-left: 46%" value="#{mBPrestar.calificaconsumidor}" />
+                <br/> 
+                <h:outputText  value="Opinion " />
+                <br/> 
+                <h:inputTextarea rows="8" cols="25" value="#{mBPrestar.opiniondeConsumidor}" />
+                <br/> 
+                <p:commandButton id="califPrestador" value="Calificar" action="#{mBPrestar.calificarConsumidor()}" update=":mensajes"/>
+            </p:tab> 
+        </p:accordionPanel>               
     </h:form>
     <br/>
     <h:form  rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">  

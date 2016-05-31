@@ -246,10 +246,17 @@ public class MBObjeto {
         List<Integer> list = prstDao.verConsumidores(idlibro);
         return (list.contains(idConsumidor));
     }
-    public List<Prestamo> prestamosConsumidorPorLibro(int idConsumidor){
+    public Prestamo prestamoConsumidorPorLibro(int idConsumidor){
         PrestarDao pDao = new PrestarDao();
-        return pDao.obtenerPrestamosPorConsumidor(idlibro,idConsumidor);
+        return pDao.obtenerPrestamosPorConsumidor(idlibro,idConsumidor).get(0);
     }
+    public int prestamoConsumidorPorLibroId(int idConsumidor){
+        PrestarDao pDao = new PrestarDao();
+        Prestamo prst = pDao.obtenerPrestamosPorConsumidor(idlibro,idConsumidor).get(0);
+        System.out.println("este es el bueno: "+prst.getIdprestamo());
+        return prst.getIdprestamo();
+    }
+
     
     /**
      * @return the usuarioIniciado

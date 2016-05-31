@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class PrestarDao extends AbstractDao {
 
     public Prestamo Buscar(int idPrestamo) throws DataAccessLayerException {
-        Prestamo returnValue = null;
+        Prestamo returnValue = new Prestamo();
         try {
             this.conectar();
             Connection con =this.getConexion();
@@ -44,8 +44,7 @@ public class PrestarDao extends AbstractDao {
                 returnValue.setOpinionsobreprestador(rs.getString("opinionsobreprestador"));
                 returnValue.setOpinionsobreconsumidor(rs.getString("opinionsobreconsumidor"));
                 returnValue.setTiemposolicitado(rs.getInt("tiemposolicitado"));
-                returnValue.setMedida(rs.getString("medida"));
-                       
+                returnValue.setMedida(rs.getString("medida"));                                       
             }
         } catch (SQLException ex) {
             throw new DataAccessLayerException (ex);
@@ -165,7 +164,7 @@ public class PrestarDao extends AbstractDao {
             desconectar();
         }
     }
-    public void ActualizarCalifPrestador(Prestamo o) throws DataAccessLayerException {
+    public void califPrestador(Prestamo o) throws DataAccessLayerException {
         try {
             this.conectar();
             Connection con =this.getConexion();
@@ -181,7 +180,24 @@ public class PrestarDao extends AbstractDao {
             desconectar();
         }
     }
-
+    public void califConsumidor(Prestamo o) throws DataAccessLayerException {
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("update prestamo set calificaconsumidor = ? , "
+                    + "opinionsobreconsumidor = ? where idprestamo = ?");
+            consulta.setInt(1, o.getCalificaconsumidor());
+            consulta.setString(2, o.getOpinionsobreconsumidor());
+            consulta.setInt(3, o.getIdprestamo());
+            System.out.println("update prestamo set calificaconsumidor ="+o.getCalificaconsumidor()+
+                    "opinionsobreconsumidor ="+o.getOpinionsobreconsumidor()+"where idprestamo ="+o.getIdprestamo());
+            consulta.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+    }
     public void Eliminar(Prestamo o) throws DataAccessLayerException {
         try {
             this.conectar();
