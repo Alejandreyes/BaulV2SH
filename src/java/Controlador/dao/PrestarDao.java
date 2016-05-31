@@ -63,7 +63,7 @@ public class PrestarDao extends AbstractDao {
             consulta.setInt(1, idlibro);
             ResultSet rs = consulta.executeQuery();
             
-            if (rs.next()){
+            while (rs.next()){
                 Prestamo returnValue = new Prestamo();
                 //returnValue.setIdprestamo(idPrestamo);
                 UsuarioDao usdao= new UsuarioDao();
