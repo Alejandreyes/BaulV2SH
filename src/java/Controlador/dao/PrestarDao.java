@@ -260,5 +260,41 @@ public class PrestarDao extends AbstractDao {
         }
         return false;
     }
+    public int getCalifPrestador(int idPrestador) throws DataAccessLayerException {
+        int prom = 0;
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select avg(calificacionprestador) from prestamo where idprestador =  ?");
+            consulta.setInt(1, idPrestador);
+            ResultSet rs = consulta.executeQuery();            
+            if (rs.next()){
+                prom = rs.getInt(1);                             
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return prom;
+    }
+    public int getCalifconsumidor(int idConsumidor) throws DataAccessLayerException {
+        int prom = 0;
+        try {
+            this.conectar();
+            Connection con =this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select avg(calificaconsumidor) from prestamo where idconsumidor =  ?");
+            consulta.setInt(1, idConsumidor);
+            ResultSet rs = consulta.executeQuery();            
+            if (rs.next()){
+                prom = rs.getInt(1);                             
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return prom;
+    }
 
 }

@@ -40,6 +40,12 @@
                 
                 <h:outputText value="Sinopsis:" />
                 <h:outputText value="#{mBObjeto.sinopsis}" />
+                
+                <h:outputText value="Calificacion Prestador:" />
+                <h:form>
+                    <p:rating value="#{mBObjeto.calificacionPrestador(mBObjeto.idPrestador)}" readonly="true" />
+                </h:form>
+                
             </p:panelGrid>              
         <br/>       
         <br/>  
@@ -101,7 +107,7 @@
                 <p:rating style="margin-left: 46%" value="#{mBPrestar.calificacionprestador}" />
                 <br/> 
                 <h:outputText  value="Opinion " />
-                <br/> 
+                <br/>  
                 <h:inputTextarea rows="8" cols="25" value="#{mBPrestar.opiniondePrestador}" />
                 <br/> 
                 <p:commandButton id="califPrestador" value="Calificar" action="#{mBPrestar.calificarPrestador()}" update=":mensajes"/>
@@ -120,21 +126,25 @@
                             <h:outputText value="#{prestamo.getIdprestamo()} " />
                         </p:column> 
                         <p:column headerText="Nombre Consumidor">
-                            <h:outputText value="#{prestamo.getUsuarioByIdprestador().getNombre()} #{prestamo.getUsuarioByIdprestador().getApellidos()}" />
+                            <h:outputText value="#{prestamo.getUsuarioByIdconsumidor().getNombre()} #{prestamo.getUsuarioByIdconsumidor().getApellidos()}" />
                         </p:column>
                         <p:column headerText="Correo Consumidor">
-                            <h:outputText value="#{prestamo.getUsuarioByIdprestador().getCorreo()} " />
+                            <h:outputText value="#{prestamo.getUsuarioByIdconsumidor().getCorreo()} " />
+                        </p:column>
+                        <p:column headerText="Calificacion general consumidor ">
+                            <h:outputText value="Calificacion Prestador:" />               
+                            <p:rating value="#{mBObjeto.calificacionPrestador(prestamo.getUsuarioByIdprestador().getIdusuario())}" readonly="true" />                
                         </p:column>
                         <p:column headerText="Fecha Prestamo">
                             <h:outputText value="#{prestamo.getFechaprestamo()} " />
                         </p:column>
-                        <p:column headerText="Calificacion Prestador">
+                        <p:column headerText="Calificacion Prestador en Prestamo">
                             <p:rating value="#{prestamo.getCalificacionprestador()}" readonly="true" />
                         </p:column>
                         <p:column headerText="Opinion Sobre Prestador">
                             <h:outputText value="#{prestamo.getOpinionsobreprestador()}" />
                         </p:column>
-                        <p:column headerText="Calificacion Consumidor">
+                        <p:column headerText="Calificacion Consumidor en Prestamo">
                             <p:rating value="#{prestamo.getCalificaconsumidor()}" readonly="true"  />
                         </p:column>
                         <p:column headerText="Opinion Sobre Consumidor">
@@ -143,6 +153,7 @@
                         <p:column headerText="Tiempo Solicitado ">
                             <h:outputText value="#{prestamo.getTiemposolicitado()} #{prestamo.getMedida()}" />
                         </p:column>
+                        
                     </p:dataTable>
                 </h:form>
             </p:tab>

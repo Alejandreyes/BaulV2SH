@@ -41,6 +41,7 @@ public class MBObjeto {
     Integer numPaginas;
     String nombreUsuario;
     String resultado;
+    int idPrestador;
     private String usuarioIniciado;
 
     public int getIdlibro() {
@@ -51,7 +52,12 @@ public class MBObjeto {
         this.idlibro = idlibro;
     }
     
-   
+    public int getIdPrestador(){
+        return idPrestador;
+    }
+    public void setIdPrestador(int idPrestador){
+        this.idPrestador = idPrestador;
+    }   
     List<Objeto> objetos = new ArrayList<Objeto>();
     public MBObjeto() {
     }
@@ -151,8 +157,8 @@ public class MBObjeto {
     public void setObjetos(List<Objeto> objetos) {
         this.objetos = objetos;
     }
-       public String altaObjeto(){
-          Usuario us= new Usuario(mBUsuario.getIdUsuario() ,mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );
+    public String altaObjeto(){
+        Usuario us= new Usuario(mBUsuario.getIdUsuario() ,mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );
         Objeto obj;
         obj = new Objeto();
         obj.setNombrelibro(nombreLibro);
@@ -169,7 +175,7 @@ public class MBObjeto {
         return "index?faces-redirect=true";
     }
     public String consultarObjeto(){
-         //Usuario us= new Usuario(mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );
+         //Usuario us= new Usuario(mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );        
         ObjetoDao objd = new ObjetoDao();        
         int i = buscarLibro.hashCode()*13;
         Objeto obj = objd.Buscar(i);
@@ -181,7 +187,9 @@ public class MBObjeto {
         genero = obj.getGenero();
         sinopsis = obj.getSinopsis();
         numPaginas = obj.getNumpaginas();
-        nombreUsuario = obj.getUsuario().getNombreusuario();
+        
+        idPrestador = obj.getUsuario().getIdusuario();
+        
         //nombreLibro = obj.getNombrelibro();        
         return "ConsultaObjetoIH.xhtml";
     }
@@ -288,6 +296,14 @@ public class MBObjeto {
         sinopsis = obj.getSinopsis();
         numPaginas = obj.getNumpaginas();
         nombreUsuario = obj.getUsuario().getNombreusuario();
+        nombreUsuario = obj.getUsuario().getNombreusuario();
+        System.out.println("idPrestador: "+ obj.getUsuario().getIdusuario());
+        idPrestador = obj.getUsuario().getIdusuario();
         return "ConsultaObjetoIH.xhtml";
-    }    
+    }   
+    
+    public int calificacionPrestador(int idPrestador){
+        PrestarDao pd = new PrestarDao();
+        return pd.getCalifPrestador(idPrestador);
+    }
 }

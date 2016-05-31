@@ -38,9 +38,11 @@ public class Prueba {
         
         //System.out.println(lst.size());
         
-        PrestarDao prtDao = new PrestarDao();
+        /*PrestarDao prtDao = new PrestarDao();
         List<Prestamo> lst = prtDao.obtenerPrestamosPorConsumidor(4048445, 77066);
-        System.out.println( lst.get(0).getIdprestamo());
+        System.out.println( lst.get(0).getIdprestamo());*/
+        PrestarDao p1 = new PrestarDao();
+        System.out.println("calificacion restador: "+ p1.getCalifPrestador(81871)); 
     }
     
 }
