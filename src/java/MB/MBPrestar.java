@@ -43,6 +43,7 @@ public class MBPrestar {
     private Integer calificaconsumidor;
     private String opiniondePrestador;
     private Usuario us;
+    private boolean flag;
     
     public MBPrestar() {
     }
@@ -52,6 +53,12 @@ public class MBPrestar {
     }
     public void setOpiniondePrestador(String opiniondePrestador){
         this.opiniondePrestador = opiniondePrestador;
+    }
+    public boolean getFlag(){
+        return flag;
+    }
+    public void setFlag(boolean flag){
+        this.flag = flag;
     }
     public MBUsuario getmBUsuario() {
         return mBUsuario;
@@ -171,6 +178,10 @@ public class MBPrestar {
         
         prstd.Guardar(prst);
     }
+    public String prueba(){        
+        System.out.println("entro aqui");        
+        return "index";
+    }
     public void calificarPrestador(){
         System.out.println("entrooo1");
         PrestarDao prstDao = new PrestarDao();
@@ -180,9 +191,6 @@ public class MBPrestar {
         prst.setOpinionsobreprestador(opiniondePrestador);
         prstDao.ActualizarCalifPrestador(prst);
         System.out.println("saliooo 1");
-    }
-    public void really(){
-        System.out.println("cacacacacc");
     }
     
 
