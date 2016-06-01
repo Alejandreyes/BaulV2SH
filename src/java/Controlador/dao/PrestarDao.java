@@ -218,14 +218,17 @@ public class PrestarDao extends AbstractDao {
             Connection con =this.getConexion();
     //        PreparedStatement consulta = con.prepareStatement("insert into Prestamo (idprestamo,idprestador,idconsumidor,idlibro,fechaprestamo,tiemposolicitado,medida) "
     //                + "values (?,?,?,?,?,?,?)");
-            PreparedStatement consulta = con.prepareStatement("insert into Prestamo (idprestamo,idprestador,idconsumidor,idlibro,fechaprestamo) "
-                    + "values (?,?,?,?,?)");
+            PreparedStatement consulta = con.prepareStatement("insert into Prestamo (idprestamo,idprestador,idconsumidor,idlibro,fechaprestamo,tiemposolicitado, medida) "
+                    + "values (?,?,?,?,?,?,?)");
             consulta.setInt(1, o.getIdprestamo());
             consulta.setInt(2, o.getUsuarioByIdprestador().getIdusuario());
             consulta.setInt(3, o.getUsuarioByIdconsumidor().getIdusuario());
             consulta.setInt(4, o.getObjeto().getIdlibro());
-            Date d= new Date(o.getFechaprestamo().getTime());
-            consulta.setDate(5,d);
+            consulta.setDate(5, (Date)o.getFechaprestamo());
+            consulta.setInt(6, o.getTiemposolicitado());
+            consulta.setString(7,o.getMedida());
+            //Date d= new Date(o.getFechaprestamo().getTime());
+            //consulta.setDate(5,d);
             //consulta.setInt(6, o.getTiemposolicitado());
             //consulta.setString(7, o.getMedida());
             consulta.executeUpdate();

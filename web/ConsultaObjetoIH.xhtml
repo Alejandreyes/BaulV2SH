@@ -58,12 +58,12 @@
                 <br/> 
                 <h:outputText  value="Fecha en la que quieres el prestamo:" />
                 <br/> 
-                <p:calendar id="popup" value="#{mBObjeto.fechap}" mindate="5/31/16"/>
+                <p:calendar id="popup" value="#{mBObjeto.fechap}" mindate="6/1/16"/>
                 <br/> 
                 <br/> 
                 <h:outputText  value="Cuantos dias lo quieres:" />
                 <br/> 
-                <p:spinner id="basic" value="#{mBObjeto.numDias}" min="0"/>
+                <p:spinner id="basic" value="#{mBObjeto.numDias}" min="1" max="30"/>
                 <br/> 
                 <br/> 
                 <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />  
@@ -148,7 +148,7 @@
                             <h:outputText value="#{prestamo.getUsuarioByIdconsumidor().getCorreo()} " />
                         </p:column>
                         <p:column headerText="Calificacion general consumidor ">            
-                            <p:rating value="#{mBObjeto.calificacionPrestador(prestamo.getUsuarioByIdprestador().getIdusuario())}" readonly="true" />                
+                            <p:rating value="#{mBObjeto.calificacionConsumidor(prestamo.getUsuarioByIdconsumidor().getIdusuario())}" readonly="true" />                
                         </p:column>
                         <p:column headerText="Fecha Prestamo">
                             <h:outputText value="#{prestamo.getFechaprestamo()} " />

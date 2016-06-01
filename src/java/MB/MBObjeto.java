@@ -274,8 +274,6 @@ public class MBObjeto {
         prst.setObjeto(obj);
         prst.setFechasolicitud(fechap);
         prst.setIdsolicitud(prst.hashCode());
-        // Solo son ejemplos ilustrativos
-        
         prst.setTiemposolicitado(numDias);
         prst.setMedida("Dias");
         prstd.Guardar(prst);
@@ -348,6 +346,10 @@ public class MBObjeto {
     public int calificacionPrestador(int idPrestador){
         PrestarDao pd = new PrestarDao();
         return pd.getCalifPrestador(idPrestador);
+    }
+    public int calificacionConsumidor(int idConsumidor){
+        PrestarDao pd = new PrestarDao();
+        return pd.getCalifconsumidor(idConsumidor);
     }
     private List<Objeto> inicia(String param){
         ObjetoDao dao= new ObjetoDao();

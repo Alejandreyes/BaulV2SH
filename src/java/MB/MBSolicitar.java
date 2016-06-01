@@ -136,8 +136,7 @@ public class MBSolicitar {
     public String aceptarSolicitud(){
         System.out.println("Entro a aceptar");
         SolicitudDao sltDao = new SolicitudDao();                      
-        Prestamo prstm = new Prestamo();
-        Date date = new Date();
+        Prestamo prstm = new Prestamo();        
         
         Solicitar slt = sltDao.Buscar(idsolicitud);        
         Objeto obj = slt.getObjeto();
@@ -145,13 +144,16 @@ public class MBSolicitar {
         prstm.setObjeto(obj);
         prstm.setUsuarioByIdprestador(slt.getUsuarioByIdconsumidor());
         prstm.setUsuarioByIdconsumidor(slt.getUsuarioByIdprestador());        
-        prstm.setFechaprestamo(date);
+        prstm.setFechaprestamo(slt.getFechasolicitud());
+        prstm.setTiemposolicitado(slt.getTiemposolicitado());
+        prstm.setMedida(slt.getMedida());
         prstm.setIdprestamo(prstm.hashCode());
-        
+        System.out.println("llego aqui");
         PrestarDao prstDao = new PrestarDao();
         prstDao.Guardar(prstm);
-        
+        System.out.println("llego aqui1");
         sltDao.Eliminar(slt);
+        System.out.println("llego aqui2");
         return "index";
     }
     public String rechazarSolicitud(){
