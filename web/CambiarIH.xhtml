@@ -47,7 +47,6 @@
                 <h:panelGrid columns="3" cellpadding="4" style="border-collapse: separate;border-spacing: 20px" >
                     <h:outputLabel for="nombre"  value="Nombre"/>
                     <p:inputText id="nombre" placeholder="#{mBUsuario.nombre}" value="#{aBCCPerfil.nombre}"  label="Nombre">
-                       
                     </p:inputText>
                     <p:message for="nombre" display="icon" />
                     <h:outputLabel for="apellido" value="Apellidos"/>
@@ -56,8 +55,8 @@
                     <p:message for="apellido" display="icon" />
                     
                     <h:outputLabel value="Correo electronico" />
-                    <p:inputText placeholder="#{mBUsuario.correo}" value="#{aBCCPerfil.correo}"/>   
-                    
+                    <p:inputText placeholder="#{mBUsuario.correo}" value="#{aBCCPerfil.correo}">   
+                    </p:inputText>
                 </h:panelGrid>
                   <p:commandButton value="Enviar" update="informacion" action="#{aBCCPerfil.actualizar()}"/> 
             </p:panel>

@@ -32,8 +32,17 @@ public class MBObjeto {
 
     @ManagedProperty(value="#{mBUsuario}")
     private MBUsuario mBUsuario;
+    String cadenaBusqueda;
     int idlibro;
     String nombreLibro;
+
+    public String getCadenaBusqueda() {
+        return cadenaBusqueda;
+    }
+
+    public void setCadenaBusqueda(String cadenaBusqueda) {
+        this.cadenaBusqueda = cadenaBusqueda;
+    }
     String buscarLibro;
     String autor;
     Integer edicion;
@@ -43,6 +52,7 @@ public class MBObjeto {
     Integer numPaginas;
     String nombreUsuario;
     String resultado;
+    List<Objeto> objetosParam = new ArrayList<Objeto>();
     int idPrestador;
     private String usuarioIniciado;
 
@@ -120,6 +130,14 @@ public class MBObjeto {
         this.genero = genero;
     }
 
+    public List<Objeto> getObjetosParam() {
+        objetosParam = inicia("nombrelibro");
+        return objetosParam;
+    }
+
+    public void setObjetosParam(List<Objeto> objetosParam) {
+        this.objetosParam = objetosParam;
+    }
     public String getSinopsis() {
         return sinopsis;
     }
@@ -155,7 +173,13 @@ public class MBObjeto {
     public List<Objeto> getObjetos() {
         return objetos;
     }
+    public String getCedanaBusqueda() {
+        return cadenaBusqueda;
+    }
 
+    public void setCedanaBusqueda(String cedanaBusqueda) {
+        this.cadenaBusqueda = cedanaBusqueda;
+    }
     public void setObjetos(List<Objeto> objetos) {
         this.objetos = objetos;
     }
@@ -222,7 +246,6 @@ public class MBObjeto {
         ObjetoDao dao=new ObjetoDao();
         return dao.obtenerTodos();
     }
-    
     public String solicitarPrestamo(){
         ObjetoDao objd = new ObjetoDao();
         Objeto obj = objd.Buscar(idlibro);
@@ -309,5 +332,14 @@ public class MBObjeto {
     public int calificacionPrestador(int idPrestador){
         PrestarDao pd = new PrestarDao();
         return pd.getCalifPrestador(idPrestador);
+    }
+    private List<Objeto> inicia(String param){
+        ObjetoDao dao= new ObjetoDao();
+        System.out.println(cadenaBusqueda);
+        return dao.obtenerObjetosParam(param,cadenaBusqueda);
+    }
+    public String consultarCadena(){
+        objetosParam = inicia("nombrelibro");
+        return "ConsultarObjetosParamIH.xhtml";
     }
 }

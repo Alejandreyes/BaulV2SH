@@ -18,42 +18,44 @@ import java.util.List;
  *
  * @author stein
  */
-public class ObjetoDao extends AbstractDao{
-    public Objeto Buscar(int idLibro) throws DataAccessLayerException{
-        Objeto tmp= null;
+public class ObjetoDao extends AbstractDao {
+
+    public Objeto Buscar(int idLibro) throws DataAccessLayerException {
+        Objeto tmp = null;
         try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("Select * from Objeto where idlibro = ?");
             consulta.setInt(1, idLibro);
             ResultSet rs = consulta.executeQuery();
             Objeto o = new Objeto();
-            
-            while (rs.next()){
-               o.setIdlibro(rs.getInt("idlibro"));
-               o.setNombrelibro(rs.getString("nombrelibro"));
-               o.setAnio(rs.getInt("anio"));
-               o.setAutor(rs.getString("autor"));
-               o.setEdicion(rs.getInt("edicion"));
-               o.setGenero(rs.getString("genero"));
-               o.setSinopsis(rs.getString("sinopsis"));
-               o.setNumpaginas(rs.getInt("numpaginas"));
-               UsuarioDao dao = new UsuarioDao();
-               Usuario us =dao.Buscar(rs.getInt("idusuario"));
-               o.setUsuario(us);
-               tmp=o;
+
+            while (rs.next()) {
+                o.setIdlibro(rs.getInt("idlibro"));
+                o.setNombrelibro(rs.getString("nombrelibro"));
+                o.setAnio(rs.getInt("anio"));
+                o.setAutor(rs.getString("autor"));
+                o.setEdicion(rs.getInt("edicion"));
+                o.setGenero(rs.getString("genero"));
+                o.setSinopsis(rs.getString("sinopsis"));
+                o.setNumpaginas(rs.getInt("numpaginas"));
+                UsuarioDao dao = new UsuarioDao();
+                Usuario us = dao.Buscar(rs.getInt("idusuario"));
+                o.setUsuario(us);
+                tmp = o;
             }
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
         return tmp;
     }
-    public void Actualizar(Objeto o) throws DataAccessLayerException{
-       try {
+
+    public void Actualizar(Objeto o) throws DataAccessLayerException {
+        try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("update objeto set nombrelibro = ? , autor = ? , "
                     + "edicion = ?, anio = ? ,genero = ?, sinopsis = ?, numpaginas = ? where idlibro = ?");
             consulta.setString(1, o.getNombrelibro());
@@ -66,28 +68,30 @@ public class ObjetoDao extends AbstractDao{
             consulta.setInt(8, o.getIdlibro());
             consulta.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
     }
-    public void Eliminar(Objeto o) throws DataAccessLayerException{
-         try {
+
+    public void Eliminar(Objeto o) throws DataAccessLayerException {
+        try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("delete from Objeto where idlibro = ?");
             consulta.setInt(1, o.getIdlibro());
             consulta.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
     }
-    public void Guardar(Objeto o) throws DataAccessLayerException{
-         try {
+
+    public void Guardar(Objeto o) throws DataAccessLayerException {
+        try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("insert into Objeto (idlibro,nombrelibro,autor,edicion,anio,genero,sinopsis,numpaginas,idusuario) "
                     + "values (?,?,?,?,?,?,?,?,?)");
             consulta.setInt(1, o.getIdlibro());
@@ -101,70 +105,100 @@ public class ObjetoDao extends AbstractDao{
             consulta.setInt(9, o.getUsuario().getIdusuario());
             consulta.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
     }
-    public List<Objeto> obtenerTodos(){
-       ArrayList<Objeto> objeto = new ArrayList();
-       try {
+
+    public List<Objeto> obtenerTodos() {
+        ArrayList<Objeto> objeto = new ArrayList();
+        try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("Select * from Objeto");
-           ResultSet rs= consulta.executeQuery();
-           while (rs.next()){
-               Objeto o = new Objeto();
-               o.setIdlibro(rs.getInt("idlibro"));
-               o.setNombrelibro(rs.getString("nombrelibro"));
-               o.setAnio(rs.getInt("anio"));
-               o.setAutor(rs.getString("autor"));
-               o.setEdicion(rs.getInt("edicion"));
-               o.setGenero(rs.getString("genero"));
-               o.setSinopsis(rs.getString("sinopsis"));
-               o.setNumpaginas(rs.getInt("numpaginas"));
-               UsuarioDao dao = new UsuarioDao();
-               Usuario us =dao.Buscar(rs.getInt("idusuario"));
-               o.setUsuario(us);
-               objeto.add(o);
-            } 
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                Objeto o = new Objeto();
+                o.setIdlibro(rs.getInt("idlibro"));
+                o.setNombrelibro(rs.getString("nombrelibro"));
+                o.setAnio(rs.getInt("anio"));
+                o.setAutor(rs.getString("autor"));
+                o.setEdicion(rs.getInt("edicion"));
+                o.setGenero(rs.getString("genero"));
+                o.setSinopsis(rs.getString("sinopsis"));
+                o.setNumpaginas(rs.getInt("numpaginas"));
+                UsuarioDao dao = new UsuarioDao();
+                Usuario us = dao.Buscar(rs.getInt("idusuario"));
+                o.setUsuario(us);
+                objeto.add(o);
+            }
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }
-       finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
         return objeto;
     }
-    public Objeto Buscar(String nombreLibro) throws DataAccessLayerException{
-        Objeto tmp= null;
+
+    public Objeto Buscar(String nombreLibro) throws DataAccessLayerException {
+        Objeto tmp = null;
         try {
             this.conectar();
-            Connection con =this.getConexion();
+            Connection con = this.getConexion();
             PreparedStatement consulta = con.prepareStatement("Select * from Objeto where nombrelibro = ?");
             consulta.setString(1, nombreLibro);
             ResultSet rs = consulta.executeQuery();
             Objeto o = new Objeto();
-            while (rs.next()){
-               o.setIdlibro(rs.getInt("idlibro"));
-               o.setNombrelibro(rs.getString("nombrelibro"));
-               o.setAnio(rs.getInt("anio"));
-               o.setAutor(rs.getString("autor"));
-               o.setEdicion(rs.getInt("edicion"));
-               o.setGenero(rs.getString("genero"));
-               o.setSinopsis(rs.getString("sinopsis"));
-               o.setNumpaginas(rs.getInt("numpaginas"));
-               UsuarioDao dao = new UsuarioDao();
-               Usuario us =dao.Buscar(rs.getInt("idusuario"));
-               o.setUsuario(us);
-               tmp=o;
+            while (rs.next()) {
+                o.setIdlibro(rs.getInt("idlibro"));
+                o.setNombrelibro(rs.getString("nombrelibro"));
+                o.setAnio(rs.getInt("anio"));
+                o.setAutor(rs.getString("autor"));
+                o.setEdicion(rs.getInt("edicion"));
+                o.setGenero(rs.getString("genero"));
+                o.setSinopsis(rs.getString("sinopsis"));
+                o.setNumpaginas(rs.getInt("numpaginas"));
+                UsuarioDao dao = new UsuarioDao();
+                Usuario us = dao.Buscar(rs.getInt("idusuario"));
+                o.setUsuario(us);
+                tmp = o;
             }
         } catch (SQLException ex) {
-            throw new DataAccessLayerException (ex);
-        }
-        finally {
+            throw new DataAccessLayerException(ex);
+        } finally {
             desconectar();
         }
         return tmp;
+    }
+
+    public List obtenerObjetosParam(String param, String cadenaBusqueda) {
+        ArrayList<Objeto> objeto = new ArrayList();
+        try {
+            this.conectar();
+            Connection con = this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select * from Objeto where " + param + " like '%" + cadenaBusqueda + "%'");
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                Objeto o = new Objeto();
+                o.setIdlibro(rs.getInt("idlibro"));
+                o.setNombrelibro(rs.getString("nombrelibro"));
+                o.setAnio(rs.getInt("anio"));
+                o.setAutor(rs.getString("autor"));
+                o.setEdicion(rs.getInt("edicion"));
+                o.setGenero(rs.getString("genero"));
+                o.setSinopsis(rs.getString("sinopsis"));
+                o.setNumpaginas(rs.getInt("numpaginas"));
+                UsuarioDao dao = new UsuarioDao();
+                Usuario us = dao.Buscar(rs.getInt("idusuario"));
+                o.setUsuario(us);
+                objeto.add(o);
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex);
+        } finally {
+            desconectar();
+        }
+        return objeto;
     }
 }

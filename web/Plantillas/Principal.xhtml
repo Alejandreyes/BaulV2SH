@@ -8,7 +8,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
+
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <h:outputStylesheet name="./css/General.css"/>
         <title>Facelets Template</title>
@@ -18,19 +18,18 @@
 
         <div id="top" class="top">
             <ui:insert name="top">
-                
-                               <div id="cabeza">
-                    
+
+                <div id="cabeza">
+
                 </div>
                 <div id="navegador">
                     <div id="navegadorBusqueda">
                         <h:form >
-                            <p:inputText style="font-family: monospace; font-size: 14pt; background-color: whitesmoke ;height: 35px;width: 500px" placeholder="Buscar" value="#{mBObjeto.buscarLibro}" id="nombreLibroInput"
-                                         required="true" label="nombreLibro" />
+                            <p:inputText style="font-family: monospace; font-size: 14pt; background-color: whitesmoke ;height: 35px;width: 500px" placeholder="Buscar" value="#{mBObjeto.cadenaBusqueda}" id="nombreLibroInput"
+                                         required="true" label="cadenaBusqueda" />
                             <p:commandButton style="height: 48px; background-color: grey; " id="AltaObjetobtn" value="Buscar"  
-                                             action="#{mBObjeto.consultarObjeto()}"  />
+                                             action="#{mBObjeto.consultarCadena()}"  />
                         </h:form>
-
                     </div>
                     <div id="navegadorBotones">
 
@@ -40,8 +39,8 @@
                                 <li><h:link  value="Baul" outcome="index"/></li>
                                 <li><h:link style="font-size: 14px;" value="Iniciar Sesión" outcome="SignInIH"/></li>               
                                 <li><h:link style="font-size: 14px;" value="Registrar" outcome="SignUpIH"/></li>
-                                
-                                
+
+
                             </ul>
 
                         </h:form>    
@@ -54,12 +53,9 @@
                                 <li><h:link  value="Alta Libro" outcome="AltaObjetoIH"/></li>
                                 <li><h:commandLink  value="Salir" action="#{aBCCPerfil.salir()}"/> </li>
                             </ul>
-                            
+
                         </h:form>
                     </div>
-
-
-
                 </div>
             </ui:insert>
         </div>

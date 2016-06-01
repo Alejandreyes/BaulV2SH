@@ -5,9 +5,11 @@
  */
 package Controlador;
 
+import java.util.regex.*;
 import Controlador.dao.UsuarioDao;
 import MB.MBUsuario;
 import Modelo.Usuario;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -99,10 +101,15 @@ public class ABCCPerfil {
         nombre = (nombre==null || nombre.equals(""))? mBUsuario.getNombre():nombre;
         apellidos = (apellidos==null || apellidos.equals(""))? mBUsuario.getApellidos():apellidos;
         correo = (correo==null || correo.equals(""))? mBUsuario.getCorreo():correo;
-       Usuario usuarioSesion = new Usuario(mBUsuario.getIdUsuario(),mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), nombre,apellidos,correo );
+       Pattern pat = Pattern.compile("^[a-zA-Z]+[\\s]*[a-zA-Z]+");
+     Matcher mat = pat.matcher(nombre);
+     if (!(mat.matches() && (pat.matcher(apellidos).matches()))) {
+         FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al cambiar informacion", ""));
+         return "CambiarIH";
+     } 
+        Usuario usuarioSesion = new Usuario(mBUsuario.getIdUsuario(),mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), nombre,apellidos,correo );
        UsuarioDao dao= new UsuarioDao();
        dao.Actualizar(usuarioSesion);
-       // Esto es para tambien cambiar los datos del usuario en sesion y muestre los cambios realizados
        mBUsuario.setNombre(nombre);
        mBUsuario.setApellidos(apellidos);
        mBUsuario.setCorreo(correo);
