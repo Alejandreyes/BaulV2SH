@@ -51,10 +51,25 @@
         <br/>       
         <br/>  
         <br/>
-        <h:form rendered="#{aBCCPerfil.verificarSesion()}">
-            <h:inputHidden id="idibro" value="#{mBObjeto.idlibro}" />
-            <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />                                      
-        </h:form>
+        <h:form  rendered="#{aBCCPerfil.verificarSesion() and aBCCPerfil.mBUsuario.nombreusuario != mBObjeto.nombreUsuario}">               
+        <p:accordionPanel>
+            <p:tab title="Solicitar Prestamo">
+                <h:inputHidden id="idibro" value="#{mBObjeto.idlibro}" />
+                <br/> 
+                <h:outputText  value="Fecha en la que quieres el prestamo:" />
+                <br/> 
+                <p:calendar id="popup" value="#{mBObjeto.fechap}" mindate="5/31/16"/>
+                <br/> 
+                <br/> 
+                <h:outputText  value="Cuantos dias lo quieres:" />
+                <br/> 
+                <p:spinner id="basic" value="#{mBObjeto.numDias}" min="0"/>
+                <br/> 
+                <br/> 
+                <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />  
+            </p:tab> 
+        </p:accordionPanel>               
+    </h:form>
         <br/>          
         <h:form rendered="#{mBObjeto.puedeCalificarPrestador(aBCCPerfil.mBUsuario.idUsuario)}">
             <br/> <br/> <br/> <br/> <br/>
@@ -181,7 +196,7 @@
                             <h:outputText value="Debe de aparecer la calif del consumidor" />
                         </p:column>
                         
-                        <p:column headerText="Fecha Solicitud">
+                        <p:column headerText="Fecha Prestamo">
                             <h:outputText value="#{sol.getFechasolicitud()}" />
                         </p:column>
 

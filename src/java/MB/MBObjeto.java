@@ -35,14 +35,6 @@ public class MBObjeto {
     String cadenaBusqueda;
     int idlibro;
     String nombreLibro;
-
-    public String getCadenaBusqueda() {
-        return cadenaBusqueda;
-    }
-
-    public void setCadenaBusqueda(String cadenaBusqueda) {
-        this.cadenaBusqueda = cadenaBusqueda;
-    }
     String buscarLibro;
     String autor;
     Integer edicion;
@@ -54,16 +46,39 @@ public class MBObjeto {
     String resultado;
     List<Objeto> objetosParam = new ArrayList<Objeto>();
     int idPrestador;
+    Date fechap;
+    int numDias;
     private String usuarioIniciado;
+    
+    public int getNumDias() {
+        return numDias;
+    }
 
+    public void setNumDias(int numDias) {
+        this.numDias = numDias;
+    }
+    public Date getFechap() {
+        return fechap;
+    }
+
+    public void setFechap(Date fechap) {
+        this.fechap = fechap;
+    }
+
+    public String getCadenaBusqueda() {
+        return cadenaBusqueda;
+    }
+
+    public void setCadenaBusqueda(String cadenaBusqueda) {
+        this.cadenaBusqueda = cadenaBusqueda;
+    }
     public int getIdlibro() {
         return idlibro;
     }
 
     public void setIdlibro(int idlibro) {
         this.idlibro = idlibro;
-    }
-    
+    }  
     public int getIdPrestador(){
         return idPrestador;
     }
@@ -257,10 +272,11 @@ public class MBObjeto {
         prst.setUsuarioByIdconsumidor(us1);
         prst.setUsuarioByIdprestador(obj.getUsuario());
         prst.setObjeto(obj);
-        prst.setFechasolicitud(date);
+        prst.setFechasolicitud(fechap);
         prst.setIdsolicitud(prst.hashCode());
         // Solo son ejemplos ilustrativos
-        prst.setTiemposolicitado(3);
+        
+        prst.setTiemposolicitado(numDias);
         prst.setMedida("Dias");
         prstd.Guardar(prst);
         return "SolicitarPrestamoIH.xhtml";
